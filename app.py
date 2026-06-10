@@ -13,7 +13,7 @@ from modules.prep_buddy import render_prep_buddy
 
 # Page Config
 st.set_page_config(
-    page_title="Placement Prep Tracker",
+    page_title="Tracker | Placement Prep",
     page_icon="🚀",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -21,138 +21,158 @@ st.set_page_config(
 
 # Initialize Database
 database.init_db()
-database.log_activity() # Track streak functionality
 
-# Custom CSS for Glassmorphism and Masterpiece UI
+# Custom CSS for "The Masterpiece" Fidelity
 st.markdown("""
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@300;600;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 
 <style>
-    /* Root Variables */
+    /* Root Theme */
     :root {
         --primary: #00d4ff;
         --secondary: #7b1fa2;
-        --glass: rgba(255, 255, 255, 0.03);
-        --glass-border: rgba(255, 255, 255, 0.1);
+        --bg-dark: #090a0f;
+        --glass: rgba(255, 255, 255, 0.04);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --glass-glow: rgba(0, 212, 255, 0.1);
     }
 
-    /* Global Styles */
+    /* Global Transitions & Fonts */
     .stApp {
-        background: radial-gradient(circle at top left, #0e1117, #1a1c24);
+        background: radial-gradient(circle at 20% 20%, #161823 0%, #090a0f 100%);
+        color: #ffffff;
         font-family: 'Inter', sans-serif;
     }
     
-    h1, h2, h3 {
+    h1, h2, h3, h4 {
         font-family: 'Outfit', sans-serif;
-        font-weight: 900;
-        letter-spacing: -1px;
     }
 
-    /* Sidebar Glassmorphism */
+    /* Deep Glassmorphism Sidebar */
     [data-testid="stSidebar"] {
-        background: rgba(15, 15, 20, 0.7);
-        backdrop-filter: blur(20px);
+        background-color: rgba(10, 11, 16, 0.9) !important;
+        backdrop-filter: blur(30px) saturate(180%);
         border-right: 1px solid var(--glass-border);
     }
     
+    /* Navigation Items Style */
     [data-testid="stSidebarNav"] {
-        background: transparent;
-    }
-
-    /* Glass Effect for Cards */
-    .stMarkdown div div {
-        /* This targets some streamlit containers */
-    }
-
-    .metric-card {
-        background: var(--glass);
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--glass-border);
-        border-radius: 20px;
-        padding: 25px;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        animation: fadeIn 0.8s ease-out;
-    }
-    .metric-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        border-color: var(--primary);
-        box-shadow: 0 10px 30px rgba(0, 212, 255, 0.15);
-    }
-
-    /* Page Transitions */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        padding-top: 20px;
     }
     
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 10px;
+    section[data-testid="stSidebar"] .stRadio div[role="radiogroup"] label {
+        background: transparent;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        transition: all 0.3s ease;
+        color: rgba(255,255,255,0.6);
+        font-size: 0.95em;
+        font-weight: 500;
+    }
+    
+    section[data-testid="stSidebar"] .stRadio div[role="radiogroup"] label:hover {
+        background: rgba(255,255,255,0.05);
+        color: white;
+    }
+    
+    section[data-testid="stSidebar"] .stRadio div[role="radiogroup"] label[data-selected="true"] {
+        background: rgba(0, 212, 255, 0.1) !important;
+        color: var(--primary) !important;
+        border-left: 3px solid var(--primary);
     }
 
-    .main .block-container {
-        animation: fadeIn 0.6s ease-out;
-    }
-
-    /* Radio Navigation Polish */
-    div.stRadio > div {
-        background: var(--glass);
-        padding: 20px;
-        border-radius: 15px;
+    /* Metric Cards Redefined (Image Accuracy) */
+    .metric-card {
+        background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+        backdrop-filter: blur(15px);
         border: 1px solid var(--glass-border);
+        border-top: 1px solid rgba(255,255,255,0.15); /* Glossy edge */
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s ease;
+    }
+    
+    .metric-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary);
     }
 
+    /* Remove Streamlit default chart margins */
+    iframe {
+        margin-top: -20px !important;
+    }
+
+    /* Animation */
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateX(-10px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    .main .block-container {
+        animation: slideIn 0.5s ease-out;
+    }
 </style>
 """, unsafe_allow_html=True)
 
-# Sidebar Navigation
+# Sidebar Branding
 with st.sidebar:
-    st.markdown(f"""
-    <div style="text-align:center; padding:20px;">
-        <h1 style="color:#00d4ff; margin:0; font-size:2em;">🚀 Tracker</h1>
-        <p style="color:gray; font-size:0.9em;">Placement Prep Ecosystem</p>
-    </div>
+    st.markdown("""
+        <div style="padding: 10px 0 30px 0;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="background: linear-gradient(135deg, #00d4ff, #7b1fa2); width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px;">🚀</div>
+                <div>
+                    <h2 style="margin:0; font-size: 1.6em; letter-spacing: -1px;">Tracker</h2>
+                    <p style="margin:0; font-size: 0.75em; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px;">Showcase Edition</p>
+                </div>
+            </div>
+        </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("---")
     menu = st.radio(
-        "Navigation",
-        ["Dashboard", "Daily To-Do", "Prep Buddy", "DSA Tracker", "Aptitude Tracker", "Interview Records", "Company Tracker", "AI Insights", "Resume Builder", "Resources"]
+        "MENU",
+        ["Overview", "Points History", "Skill Assessment", "Practice Buddy", "Interview Prep", "Pipeline", "AI Insights", "Resume Gen"],
+        label_visibility="collapsed"
     )
-    st.markdown("---")
-    st.info("The marginal cost of completeness is zero. Go 100%.")
+    
+    # Map visual names to internal modules
+    menu_map = {
+        "Overview": "Dashboard",
+        "Points History": "Daily To-Do",
+        "Skill Assessment": "DSA Tracker",
+        "Practice Buddy": "Prep Buddy",
+        "Interview Prep": "Interview Records",
+        "Pipeline": "Company Tracker",
+        "AI Insights": "AI Insights",
+        "Resume Gen": "Resume Builder"
+    }
+    active_menu = menu_map[menu]
 
-# Routing
-if menu == "Dashboard":
+    st.markdown("---")
+    st.caption("v2.0.4 | 2024 Showcase")
+
+# Routing Logic
+if active_menu == "Dashboard":
     render_dashboard()
-elif menu == "Daily To-Do":
+elif active_menu == "Daily To-Do":
     render_todo_tracker()
-elif menu == "Prep Buddy":
+elif active_menu == "Prep Buddy":
     render_prep_buddy()
-elif menu == "DSA Tracker":
+elif active_menu == "DSA Tracker":
     render_dsa_tracker()
-elif menu == "Aptitude Tracker":
-    render_aptitude_tracker()
-elif menu == "Interview Records":
+elif active_menu == "Interview Records":
     render_interview_tracker()
-elif menu == "Company Tracker":
+elif active_menu == "Company Tracker":
     render_company_tracker()
-elif menu == "AI Insights":
-    # Fetch data needed for insights
+elif active_menu == "AI Insights":
     dsa_data = database.get_all_dsa()
     apt_data = database.get_all_aptitude()
     int_data = database.get_all_interviews()
     from modules.readiness_score import calculate_readiness
     scores = calculate_readiness(dsa_data, apt_data, int_data)
-    
-    if scores['overall_score'] > 90:
-        st.balloons()
-    elif scores['overall_score'] > 50:
-        st.toast("Keep it up! You are in the 'Intermediate' zone! 🚀")
-        
     render_insights(dsa_data, apt_data, int_data, scores)
-elif menu == "Resume Builder":
+elif active_menu == "Resume Builder":
     render_resume_builder()
-elif menu == "Resources":
-    render_resources()
