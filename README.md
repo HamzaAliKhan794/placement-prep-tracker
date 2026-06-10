@@ -1,59 +1,54 @@
-# Placement Prep Tracker 🚀
+# 🚀 Placement Prep Tracker: Showcase Edition
 
-A modern, high-performance web application built with Streamlit and Python to help engineering students track their placement preparation progress.
+![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
 
-## Features
+A high-performance, beautiful, and "Boiled Ocean" placement preparation ecosystem. Designed for engineering students who demand a professional edge in their prep journey.
 
-- **Dynamic Dashboard**: Visualize your readiness score with a radar skill chart and key metrics.
-- **DSA Tracker**: Topic-wise tracking of coding questions with progress visualization.
-- **Aptitude Tracker**: A checklist of core aptitude topics for quick monitoring.
-- **Interview Records**: Document your mock and real interview experiences including notes and results.
-- **Company Application Tracker**: Manage your applications with a Kanban-style status flow.
-- **Placement Readiness Score**: A weighted scoring system (DSA, Apt, Interviews, Resume) to gauge your preparation level.
-- **Curated Resources**: Quick access to top-tier preparation materials.
+## ✨ Premium Features
 
-## Tech Stack
+*   **📊 Interactive Skill Radar**: Dynamic Plotly visualization for real-time gap analysis across DSA, Aptitude, and Soft Skills.
+*   **📋 Visual Kanban Pipeline**: Manage job applications through a sleek, status-driven funnel.
+*   **🤖 AI Prep Buddy**: A motivational companion providing daily technical reflections and "Question of the Day" challenges.
+*   **📄 Professional Resume Builder**: Automatically generate and download a structured Markdown resume based on your prep data.
+*   **📘 Topic Trackers**: Specialized modules for DSA (topic-wise) and Quantitative Aptitude checklist.
+*   **🔥 Study Streaks**: Gamified consistency tracking to keep the momentum alive.
 
-- **Frontend**: Streamlit (with custom CSS Glassmorphism)
-- **Backend Logic**: Python
-- **Database**: SQLite3
-- **Visualization**: Matplotlib, Pandas
+## 🛠️ Tech Stack
 
-## Installation & Setup
+- **Frontend**: Streamlit with Custom Glassmorphism CSS
+- **Visualization**: Plotly Interactive Charts
+- **Backend**: Python 3.14+
+- **Database**: SQLite3 (Thread-safe)
+- **Testing**: PyTest-ready logic suite
 
-1. **Clone the project** to your local machine.
-2. **Install dependencies**:
+## 🚀 Getting Started
+
+1. **Clone the repo**:
    ```bash
-   pip install streamlit pandas matplotlib numpy
+   git clone https://github.com/HamzaAliKhan794/placement-prep-tracker.git
+   cd placement-prep-tracker
    ```
-3. **Run the application**:
+
+2. **Install Dependencies**:
+   ```bash
+   pip install streamlit pandas plotly numpy matplotlib
+   ```
+
+3. **Launch the App**:
    ```bash
    streamlit run app.py
    ```
 
-## Folder Structure
+## 📐 Project Architecture
 
-```text
-PlacementPrepTracker/
-├── app.py              # Entry point & UI Styling
-├── database.py         # Database Schema & CRUD
-├── database.db         # Auto-generated SQLite DB
-├── modules/
-│   ├── dashboard.py    # Analytics & Radar Chart
-│   ├── dsa_tracker.py  # DSA UI
-│   ├── aptitude_tracker.py # Aptitude UI
-│   ├── interview_tracker.py # Interview UI
-│   ├── company_tracker.py # Application UI
-│   ├── readiness_score.py # Scoring Engine
-│   └── resources.py    # Prep Links
-└── assets/             # Static assets
-```
-
-## Readiness Levels
-
-- **Beginner**: Score < 40%
-- **Intermediate**: Score 40% - 80%
-- **Placement Ready**: Score > 80%
+The system follows a modular 3-tier architecture:
+- `app.py`: Central orchestrator and UI entry point.
+- `database.py`: Robust data persistence layer.
+- `modules/`: Feature-specific logic (Trackers, Insights, Builder).
+- `tests/`: Engineering validation suite.
 
 ---
-Built with ❤️ for the next generation of engineers.
+*Created by Hamza Ali Khan | 2026 Showcase*
