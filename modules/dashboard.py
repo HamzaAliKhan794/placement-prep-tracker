@@ -80,10 +80,10 @@ def render_dashboard():
     # Use real calculated data for radar
     categories = ['DSA', 'Aptitude', 'Interviews', 'Resume']
     values = [
-        scores['dsa_score'],
-        scores['aptitude_score'],
-        scores['interview_score'],
-        scores['resume_score']
+        scores['dsa_p'],
+        scores['apt_p'],
+        scores['interview_p'],
+        scores['resume_p']
     ]
 
     fig = go.Figure()
